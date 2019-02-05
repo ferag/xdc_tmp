@@ -11,4 +11,4 @@ echo $(whoami)
 
 # to not overwrite the entrypoint of the jupyter/base-notebook
 # see https://github.com/jupyter/docker-stacks/blob/master/base-notebook/Dockerfile
-exec tini -g -- "start-notebook.sh"
+tini -g -- start-notebook.sh --ip="0.0.0.0" --port=8888
