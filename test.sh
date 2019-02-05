@@ -4,4 +4,4 @@
 echo miau > test.txt
 #sudo su
 oneclient --authentication token --no_check_certificate ./datasets
-tini -g -- start-notebook.sh --ip="0.0.0.0" --port=8888
+exec tini -g -- start-notebook.sh --ip="0.0.0.0" --port=8888
