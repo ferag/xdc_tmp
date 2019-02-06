@@ -4,8 +4,5 @@
 echo miau > test.txt
 sudo chown -R jovyan:users /home/jovyan/.local/share/jupyter
 sudo chown -R jovyan:users /home/jovyan/datasets
-whoami
-su root
-whoami
-sudo -u jovyan oneclient --authentication token --no_check_certificate ./datasets
+su jovyan -c 'oneclient --authentication token --no_check_certificate /home/jovyan/datasets'
 tini -g -- start-notebook.sh --ip="0.0.0.0" --port=8888
