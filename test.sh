@@ -6,5 +6,5 @@ sudo chown -R jovyan:users /home/jovyan/.local/share/jupyter
 whoami
 su jovyan
 whoami
-exec oneclient --authentication token --no_check_certificate ./datasets
+#exec oneclient --authentication token --no_check_certificate ./datasets
 nohup tini -g -- start-notebook.sh --ip="0.0.0.0" --port=8888 &
