@@ -1,12 +1,3 @@
-D3D_VALUE: { get_input: d3d_value }
-          INPUT_ONEDATA_TOKEN: { get_attribute : [ model_space_name, token ] }
-          INPUT_CONFIG_FILE: { get_input: input_config_file }
-          D3D_BIN: '/delft3d_repository'
-          ONEDATA_PROVIDER: { get_attribute : onedata_providers }
-          ONEDATA_SPACE: { get_input: model_space_name }
-          MODEL_PATH: { get_input: model_path }
-          OUTPUT_FILENAMES: { get_input: output_filenames }
-         
 #!/bin/bash
 env
 mkdir -p /onedata/output
