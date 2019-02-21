@@ -9,6 +9,7 @@ echo Start at $(date)
 OUTPUTDIR="/onedata/output/$ONEDATA_SPACE/$MODEL_PATH"
 
 mkdir -p "$OUTPUTDIR" # create if it does not exists
+mkdir -p /data
 TEMPW=$(mktemp -d --tmpdir="/data" workspace.XXXXXXXXXX)
 
 WORKDIR="$TEMPW"
