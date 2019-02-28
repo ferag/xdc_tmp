@@ -17,7 +17,7 @@ WORKDIR="$TEMPW"
 # Extract input
 echo Extracting input
 
-cp $OUTPUTDIR/* $WORKDIR || exit 1
+mv $OUTPUTDIR/* $WORKDIR || exit 1
 cd "$WORKDIR" || exit 2
 
 echo Listing directory content:
@@ -53,13 +53,13 @@ export LD_LIBRARY_PATH=$exedir:$LD_LIBRARY_PATH
     # Run
 $exedir/d_hydro.exe $argfile
 
-cp ./*.nc "$OUTPUTDIR"
-cp ./*.mdf "$OUTPUTDIR"
-cp ./*.txt "$OUTPUTDIR"
-cp ./*.inp "$OUTPUTDIR"
-cp ./*.lga "$OUTPUTDIR"
-cp ./*.lsp "$OUTPUTDIR"
-cp ./*.lst "$OUTPUTDIR"
+mv ./*.nc "$OUTPUTDIR"
+mv ./*.mdf "$OUTPUTDIR"
+mv ./*.txt "$OUTPUTDIR"
+mv ./*.inp "$OUTPUTDIR"
+mv ./*.lga "$OUTPUTDIR"
+mv ./*.lsp "$OUTPUTDIR"
+mv ./*.lst "$OUTPUTDIR"
 
 echo Output file: "$OUTPUTDIR"/"$OUTPUT_FILENAMES"
 
