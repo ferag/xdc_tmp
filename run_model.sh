@@ -76,13 +76,8 @@ END_DATE=$(echo $MODEL_PATH| cut -d'_' -f 3 | cut -d'/' -f 1)
 TITLE=$(echo $MODEL_PATH| cut -d'/' -f 2)
 TITLE=$TITLE/$OUTPUT_FILENAMES
 
-printf -v json -- '{  "eml:eml": {"dataset": {"title": "%s","dataTable": {"dataTable": {"physical": {"size": {"@unit": "bytes","#text": "1231"},"objectName": "%s","dataFormat": {"textFormat": {"simpleDelimited":  {"fieldDelimiter": "\\t"},"numHeaderLines": "1","attributeOrientation": "column"}},"characterEncoding": "ASCII"},"entityName": "%s","attributeList": null, "@id": "%s"}, "FileName": "%s"},   "coverage": {"temporalCoverage": {"rangeOfDates": { "endDate": {"calendarDate": "%s"},"beginDate": {"calendarDate": "%s"}}},"geographicCoverage": {"westBoundingCoordinate": "41.91",    "southBoundingCoordinate": "-2.83", "northBoundingCoordinate": "-2.83", "geographicDescription": "CdP", "eastBoundingCoordinate": "41.91", "@id": "id" }} }, "access": { "allow": { "principal": "public", "permission": "read"}, "@order": "allowFirst", "@authSystem": "knb"},"@xmlns:eml": "eml://ecoinformatics.org/eml-2.1.1","@system": "knb"}}' "$TITLE" "$TITLE" "$TITLE" "$TITLE" "$TITLE" "$BEGIN_DATE" "$END_DATE"
-
-curl --tlsv1.2 -X PUT -H "X-Auth-Token: $INPUT_ONEDATA_TOKEN" \
--H 'Content-type: application/json'  \
-    -d "$json" "https://$ONEDATA_PROVIDERS/api/v3/oneprovider/metadata/$ONEDATA_SPACE/$MODEL_PATH/$OUTPUT_FILENAMES"
+curl --tlsv1.2 -X PUT -H "X-Auth-Token: $INPUT_ONEDATA_TOKEN" -H 'Content-type: application/json' -d '{"eml:eml":{"dataset":{"title":"'"$TITLE"'","dataTable":{"dataTable":{"physical":{"size":{"@unit":"bytes","#text":"1231"},"objectName":"'"$TITLE"'","dataFormat":{"textFormat":{"simpleDelimited":{"fieldDelimiter":" "},"numHeaderLines":"1","attributeOrientation":"column"}},"characterEncoding":"ASCII"},"entityName":"'"$TITLE"'","attributeList":"","@id":"'"$TITLE"'"},"FileName":"'"$TITLE"'"},"coverage":{"temporalCoverage":{"rangeOfDates":{"endDate":{"calendarDate":"'"$BEGIN_DATE"'"},"beginDate":{"calendarDate":"'"$END_DATE"'"}}},"geographicCoverage":{"westBoundingCoordinate":"41.91","southBoundingCoordinate":"-2.83","northBoundingCoordinate":"-2.83","geographicDescription":"CdP","eastBoundingCoordinate":"41.91","@id":"id"}}},"access":{"allow":{"principal":"public","permission":"read"},"@order":"allowFirst","@authSystem":"knb"},"@xmlns:eml":"eml://ecoinformatics.org/eml-2.1.1","@system":"knb"}}' "https://$ONEDATA_PROVIDERS/api/v3/oneprovider/metadata/$ONEDATA_SPACE/$MODEL_PATH/$OUTPUT_FILENAMES" -v
    
-
 echo End at $(date)
 
 sleep 5
