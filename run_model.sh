@@ -51,7 +51,7 @@ exedir=$D3D_BIN/bin/lnx64/flow2d3d/bin
 export LD_LIBRARY_PATH=$exedir:$LD_LIBRARY_PATH
 
     # Run
-$exedir/d_hydro.exe $argfile
+$exedir/d_hydro.exe $argfile > "$OUTPUTDIR"/model_output.log
 
 mv ./*.nc "$OUTPUTDIR"
 mv ./*.mdf "$OUTPUTDIR"
