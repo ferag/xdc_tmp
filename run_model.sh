@@ -78,7 +78,52 @@ TITLE=$(echo $MODEL_PATH| cut -d'/' -f 2)
 TITLE=$TITLE/$OUTPUT_FILENAMES
 
 curl --tlsv1.2 -X PUT -H "X-Auth-Token: $INPUT_ONEDATA_TOKEN" -H 'Content-type: application/json' -d '{"eml:eml":{"dataset":{"title":"'"$TITLE"'","comment":"model","dataTable":{"dataTable":{"physical":{"size":{"@unit":"bytes","#text":"1231"},"objectName":"'"$TITLE"'","dataFormat":{"textFormat":{"simpleDelimited":{"fieldDelimiter":" "},"numHeaderLines":"1","attributeOrientation":"column"}},"characterEncoding":"ASCII"},"entityName":"'"$TITLE"'","attributeList":"","@id":"'"$TITLE"'"},"FileName":"'"$TITLE"'"},"coverage":{"temporalCoverage":{"rangeOfDates":{"endDate":{"calendarDate":"'"$END_DATE"'"},"beginDate":{"calendarDate":"'"$BEGIN_DATE"'"}}},"geographicCoverage":{"westBoundingCoordinate":"41.91","southBoundingCoordinate":"-2.83","northBoundingCoordinate":"-2.83","geographicDescription":"'"$REGION"'","eastBoundingCoordinate":"41.91","@id":"id"}}},"access":{"allow":{"principal":"public","permission":"read"},"@order":"allowFirst","@authSystem":"knb"},"@xmlns:eml":"eml://ecoinformatics.org/eml-2.1.1","@system":"knb"}}' "https://$ONEDATA_PROVIDERS/api/v3/oneprovider/metadata/$ONEDATA_SPACE/$MODEL_PATH$OUTPUT_FILENAMES" -vs 2>&1 | less > "$OUTPUTDIR"/metadata.log
-   
+
+inpfile=test_1.inp
+
+currentdir=`pwd`
+echo $currentdir
+argfile=$currentdir/$inpfile
+
+    #
+    # Set the directory containing delwaq1 and delwaq2 and
+    # the directory containing the proc_def and bloom files here
+    #
+exedir=$D3D_BIN/bin/lnx64/waq/bin
+procfile=$D3D_BIN/bin/lnx64/waq/default/proc_def
+
+    #
+    # Run delwaq 1
+    #
+$exedir/delwaq1 $argfile -p "$procfile"
+
+    #
+    # Wait for any key to run delwaq 2
+    #
+if [ $? == 0 ]
+  then
+    echo ""
+    echo "Delwaq1 did run without errors."
+
+    #
+    # Run delwaq 2
+    #
+    echo ""
+    $exedir/delwaq2 $argfile
+
+    if [ $? -eq 0 ]
+      then
+        echo ""
+        echo "Delwaq2 did run without errors."
+      else
+        echo ""
+        echo "Delwaq2 did not run correctly."
+    fi
+else
+    echo ""
+    echo "Delwaq1 did not run correctly, ending calculation"
+fi
+
 echo End at $(date)
 
 sleep 5
