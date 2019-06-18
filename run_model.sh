@@ -124,6 +124,9 @@ else
     echo "Delwaq1 did not run correctly, ending calculation"
 fi
 
+mv ./*.map "$OUTPUTDIR"
+mv ./*.ada "$OUTPUTDIR"
+
 echo End at $(date)
 
 sleep 5
