@@ -95,7 +95,7 @@ procfile=$D3D_BIN/bin/lnx64/waq/default/proc_def
     #
     # Run delwaq 1
     #
-$exedir/delwaq1 $argfile -p "$procfile"
+$exedir/delwaq1 $argfile -p "$procfile" > "$OUTPUTDIR"/delwaq1_output.log
 
     #
     # Wait for any key to run delwaq 2
@@ -109,7 +109,7 @@ if [ $? == 0 ]
     # Run delwaq 2
     #
     echo ""
-    $exedir/delwaq2 $argfile
+    $exedir/delwaq2 $argfile > "$OUTPUTDIR"/delwaq2_output.log
 
     if [ $? -eq 0 ]
       then
