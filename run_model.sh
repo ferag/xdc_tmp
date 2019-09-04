@@ -126,6 +126,7 @@ fi
 
 mv ./*.map "$OUTPUTDIR"
 mv ./*.ada "$OUTPUTDIR"
+find . -mtime -1 -exec cp -a --parents -t "$OUTPUTDIR" "{}" \+
 
 echo End at $(date)
 
