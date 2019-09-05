@@ -65,9 +65,6 @@ echo Output file: "$OUTPUTDIR"/"$OUTPUT_FILENAMES"
 
 cd -
 
-echo Cleaning temp workspace
-rm -rf "$WORKDIR"/* && rm -rf "$WORKDIR"
-
 echo Onedata metadata attachment
 
 BEGIN_DATE=$(echo $MODEL_PATH| cut -d'_' -f 2)
@@ -126,7 +123,9 @@ fi
 
 mv ./*.map "$OUTPUTDIR"
 mv ./*.ada "$OUTPUTDIR"
-find . -mtime -1 -exec cp -a --parents -t "$OUTPUTDIR" "{}" \+
+
+echo Cleaning temp workspace
+rm -rf "$WORKDIR"/* && rm -rf "$WORKDIR"
 
 echo End at $(date)
 
