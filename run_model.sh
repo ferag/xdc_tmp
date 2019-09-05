@@ -63,7 +63,7 @@ mv ./*.lst "$OUTPUTDIR"
 
 echo Output file: "$OUTPUTDIR"/"$OUTPUT_FILENAMES"
 
-cd -
+#cd -
 
 echo Onedata metadata attachment
 
