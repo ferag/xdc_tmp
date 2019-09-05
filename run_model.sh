@@ -53,16 +53,6 @@ export LD_LIBRARY_PATH=$exedir:$LD_LIBRARY_PATH
     # Run
 $exedir/d_hydro.exe $argfile > "$OUTPUTDIR"/model_output.log
 
-mv ./*.nc "$OUTPUTDIR"
-mv ./*.mdf "$OUTPUTDIR"
-mv ./*.txt "$OUTPUTDIR"
-mv ./*.inp "$OUTPUTDIR"
-mv ./*.lga "$OUTPUTDIR"
-mv ./*.lsp "$OUTPUTDIR"
-mv ./*.lst "$OUTPUTDIR"
-
-echo Output file: "$OUTPUTDIR"/"$OUTPUT_FILENAMES"
-
 #cd -
 
 echo Onedata metadata attachment
@@ -123,6 +113,15 @@ fi
 
 mv ./*.map "$OUTPUTDIR"
 mv ./*.ada "$OUTPUTDIR"
+mv ./*.nc "$OUTPUTDIR"
+mv ./*.mdf "$OUTPUTDIR"
+mv ./*.txt "$OUTPUTDIR"
+mv ./*.inp "$OUTPUTDIR"
+mv ./*.lga "$OUTPUTDIR"
+mv ./*.lsp "$OUTPUTDIR"
+mv ./*.lst "$OUTPUTDIR"
+
+echo Output file: "$OUTPUTDIR"/"$OUTPUT_FILENAMES"
 
 echo Cleaning temp workspace
 rm -rf "$WORKDIR"/* && rm -rf "$WORKDIR"
