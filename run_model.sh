@@ -55,17 +55,6 @@ $exedir/d_hydro.exe $argfile > "$OUTPUTDIR"/model_output.log
 
 #cd -
 
-echo Onedata metadata attachment
-
-BEGIN_DATE=$(echo $MODEL_PATH| cut -d'_' -f 2)
-END_DATE=$(echo $MODEL_PATH| cut -d'_' -f 3 | cut -d'/' -f 1)
-REGION=$(echo $MODEL_PATH| cut -d'/' -f 1) 
-
-TITLE=$(echo $MODEL_PATH| cut -d'/' -f 2)
-TITLE=$TITLE/$OUTPUT_FILENAMES
-
-curl --tlsv1.2 -X PUT -H "X-Auth-Token: $INPUT_ONEDATA_TOKEN" -H 'Content-type: application/json' -d '{"eml:eml":{"dataset":{"title":"'"$TITLE"'","comment":"model","dataTable":{"dataTable":{"physical":{"size":{"@unit":"bytes","#text":"1231"},"objectName":"'"$TITLE"'","dataFormat":{"textFormat":{"simpleDelimited":{"fieldDelimiter":" "},"numHeaderLines":"1","attributeOrientation":"column"}},"characterEncoding":"ASCII"},"entityName":"'"$TITLE"'","attributeList":"","@id":"'"$TITLE"'"},"FileName":"'"$TITLE"'"},"coverage":{"temporalCoverage":{"rangeOfDates":{"endDate":{"calendarDate":"'"$END_DATE"'"},"beginDate":{"calendarDate":"'"$BEGIN_DATE"'"}}},"geographicCoverage":{"westBoundingCoordinate":"41.91","southBoundingCoordinate":"-2.83","northBoundingCoordinate":"-2.83","geographicDescription":"'"$REGION"'","eastBoundingCoordinate":"41.91","@id":"id"}}},"access":{"allow":{"principal":"public","permission":"read"},"@order":"allowFirst","@authSystem":"knb"},"@xmlns:eml":"eml://ecoinformatics.org/eml-2.1.1","@system":"knb"}}' "https://$ONEDATA_PROVIDERS/api/v3/oneprovider/metadata/$ONEDATA_SPACE/$MODEL_PATH$OUTPUT_FILENAMES" -vs 2>&1 | less > "$OUTPUTDIR"/metadata.log
-
 inpfile=test_1.inp
 
 currentdir=`pwd`
@@ -122,6 +111,22 @@ mv ./*.lsp "$OUTPUTDIR"
 mv ./*.lst "$OUTPUTDIR"
 
 echo Output file: "$OUTPUTDIR"/"$OUTPUT_FILENAMES"
+
+echo Onedata metadata attachment
+
+BEGIN_DATE=$(echo $MODEL_PATH| cut -d'_' -f 2)
+END_DATE=$(echo $MODEL_PATH| cut -d'_' -f 3 | cut -d'/' -f 1)
+REGION=$(echo $MODEL_PATH| cut -d'/' -f 1) 
+
+TITLE=$(echo $MODEL_PATH| cut -d'/' -f 2)
+TITLE=$TITLE/$OUTPUT_FILENAMES
+
+curl --tlsv1.2 -X PUT -H "X-Auth-Token: $INPUT_ONEDATA_TOKEN" -H 'Content-type: application/json' -d '{"eml:eml":{"dataset":{"title":"'"$TITLE"'","comment":"model","dataTable":{"dataTable":{"physical":{"size":{"@unit":"bytes","#text":"1231"},"objectName":"'"$TITLE"'","dataFormat":{"textFormat":{"simpleDelimited":{"fieldDelimiter":" "},"numHeaderLines":"1","attributeOrientation":"column"}},"characterEncoding":"ASCII"},"entityName":"'"$TITLE"'","attributeList":"","@id":"'"$TITLE"'"},"FileName":"'"$TITLE"'"},"coverage":{"temporalCoverage":{"rangeOfDates":{"endDate":{"calendarDate":"'"$END_DATE"'"},"beginDate":{"calendarDate":"'"$BEGIN_DATE"'"}}},"geographicCoverage":{"westBoundingCoordinate":"41.91","southBoundingCoordinate":"-2.83","northBoundingCoordinate":"-2.83","geographicDescription":"'"$REGION"'","eastBoundingCoordinate":"41.91","@id":"id"}}},"access":{"allow":{"principal":"public","permission":"read"},"@order":"allowFirst","@authSystem":"knb"},"@xmlns:eml":"eml://ecoinformatics.org/eml-2.1.1","@system":"knb"}}' "https://$ONEDATA_PROVIDERS/api/v3/oneprovider/metadata/$ONEDATA_SPACE/$MODEL_PATH$OUTPUT_FILENAMES" -vs 2>&1 | less > "$OUTPUTDIR"/metadata.log
+
+TITLE=$(echo $MODEL_PATH| cut -d'/' -f 2)
+TITLE=$TITLE/com-test_1_waqgeom.nc
+
+curl --tlsv1.2 -X PUT -H "X-Auth-Token: $INPUT_ONEDATA_TOKEN" -H 'Content-type: application/json' -d '{"eml:eml":{"dataset":{"title":"'"$TITLE"'","comment":"model","dataTable":{"dataTable":{"physical":{"size":{"@unit":"bytes","#text":"1231"},"objectName":"'"$TITLE"'","dataFormat":{"textFormat":{"simpleDelimited":{"fieldDelimiter":" "},"numHeaderLines":"1","attributeOrientation":"column"}},"characterEncoding":"ASCII"},"entityName":"'"$TITLE"'","attributeList":"","@id":"'"$TITLE"'"},"FileName":"'"$TITLE"'"},"coverage":{"temporalCoverage":{"rangeOfDates":{"endDate":{"calendarDate":"'"$END_DATE"'"},"beginDate":{"calendarDate":"'"$BEGIN_DATE"'"}}},"geographicCoverage":{"westBoundingCoordinate":"41.91","southBoundingCoordinate":"-2.83","northBoundingCoordinate":"-2.83","geographicDescription":"'"$REGION"'","eastBoundingCoordinate":"41.91","@id":"id"}}},"access":{"allow":{"principal":"public","permission":"read"},"@order":"allowFirst","@authSystem":"knb"},"@xmlns:eml":"eml://ecoinformatics.org/eml-2.1.1","@system":"knb"}}' "https://$ONEDATA_PROVIDERS/api/v3/oneprovider/metadata/$ONEDATA_SPACE/$MODEL_PATHcom-test_1_waqgeom.nc" -vs 2>&1 | less > "$OUTPUTDIR"/metadata_waq.log
 
 echo Cleaning temp workspace
 rm -rf "$WORKDIR"/* && rm -rf "$WORKDIR"
