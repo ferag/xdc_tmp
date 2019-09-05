@@ -100,8 +100,8 @@ else
     echo "Delwaq1 did not run correctly, ending calculation"
 fi
 
-mv ./*.map "$OUTPUTDIR"
-mv ./*.ada "$OUTPUTDIR"
+#mv ./*.map "$OUTPUTDIR"
+#mv ./*.ada "$OUTPUTDIR"
 mv ./*.nc "$OUTPUTDIR"
 mv ./*.mdf "$OUTPUTDIR"
 mv ./*.txt "$OUTPUTDIR"
